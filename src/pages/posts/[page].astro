@@ -8,13 +8,26 @@ import { getCollection } from 'astro:content'
 export async function getStaticPaths({ paginate }): Promise<Astro.getStaticPathsResult> {
     const blogEntries = await getCollection("blog");
 
+	const createExcerpt = function(post) {
+		const MAX_LENGTH = 225;
+		const content = post.replace(/(<([^>]+)>)/gi, "");
+
+		let preview = content.substr(0, MAX_LENGTH);
+
+		if (content.length <= MAX_LENGTH) {
+			return preview;
+		} else {
+			return preview + "...";
+		}
+	}
+
     const posts = blogEntries
         .map(post => ({
             title: post.data.title,
-            date: post.data.date,
-            badge: post.data.tags[0],
-            excerpt: trimExcerpt(post.data.excerpt),
-            slug: `${template.base}/blog/${post.id}`,
+            date: post.data.pubDate,
+            // badge: post.data.tags[0],
+            // excerpt: trimExcerpt(post.data.excerpt),
+            slug: `${template.base}/posts/${post.id}`,
         }))
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -39,9 +52,9 @@ const { page } = Astro.props
 										{post.title}
 									</a>
 								</h2>
-								<div class='badge badge-accent badge-outline p-4'>
-									{post.badge}
-								</div>
+								<!--<div class='badge badge-accent badge-outline p-4'>-->
+								<!--	{post.badge}-->
+								<!--</div>-->
 							</div>
 							<time datetime={post.date} class='text-sm text-base-content/71'>
 								{new Date(post.date).toLocaleDateString('en-US', {

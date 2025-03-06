@@ -18,7 +18,7 @@ export async function getStaticPaths(): Promise<Array<{ params: { slug: string }
     return posts
 }
 const {post} = Astro.props;
-const { title, date, tags} = post.data; 
+const { title, pubDate, tags} = post.data;
 const { Content } = await render(post);
 
 console.log("Slug page?")
@@ -35,7 +35,7 @@ console.log(post)
 				<h1 class='text-4xl font-bold mb-4 text-base-content'>{title}</h1>
 				<div class='flex flex-wrap items-center gap-4 text-base-content/70'>
 					<!-- Date -->
-					<time datetime={date} class='flex items-center'>
+					<time datetime={pubDate} class='flex items-center'>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							class='h-4 w-4 mr-2'
@@ -51,7 +51,7 @@ console.log(post)
 							></path>
 						</svg>
 						{
-							new Date(date).toLocaleDateString('en-US', {
+							new Date(pubDate).toLocaleDateString('en-US', {
 								year: 'numeric',
 								month: 'long',
 								day: 'numeric',
