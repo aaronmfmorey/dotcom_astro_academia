@@ -1,10 +1,10 @@
 export const profile = {
-	fullName: 'Your Name',
+	fullName: 'Aaron Morey',
 	title: '',
 	institute: '',
-	author_name: '', // Author name to be highlighted in the papers section
+	author_name: 'Aaron Morey', // Author name to be highlighted in the papers section
 	research_areas: [
-		// { title: 'Physics', description: 'Brief description of the research interest', field: 'physics' },
+		{ title: 'Server Side Development', description: '<ul><li>Java</li><li>PHP</li><li>C#</li>', field: 'physics' },
 	],
 }
 
